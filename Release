@@ -1,0 +1,20 @@
+Announcing the release of Perl Module Math::VecStat Version 0.02
+
+I have uploaded this as Math-VecStat-0.02.tar.gz to the CPAN archives
+It will appear under my home directory.
+
+Math::VecStat - Some basic numeric stats on vectors
+
+   This package procides some basic statistics on numerical
+vectors. Included are max , min , sum , average.
+
+Suggested Module Entry
+
+6) Data Types and Data Type Utilities (see also Database Interfaces)
+
+Name           DSLI  Description                                  Info
+-----------    ----  -------------------------------------------- -----
+Math::
+::VecStat      Rdpr  Some basic numeric stats on vectors          JARW
+
+  JARW John A.R. Williams <J.A.R.Williams@aston.ac.uk>
