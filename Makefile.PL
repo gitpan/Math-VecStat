@@ -1,7 +1,7 @@
 use ExtUtils::MakeMaker;
 use Config;
 
-$Version = '0.02';
+$Version = '0.03';
 
 WriteMakefile(
 	      'NAME'     => 'Math::VecStat',

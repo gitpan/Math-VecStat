@@ -1,12 +1,13 @@
-Announcing the release of Perl Module Math::VecStat Version 0.02
+Announcing the release of Perl Module Math::VecStat Version 0.03
 
-I have uploaded this as Math-VecStat-0.02.tar.gz to the CPAN archives
+I have uploaded this as Math-VecStat-0.03.tar.gz to the CPAN archives
 It will appear under my home directory.
 
 Math::VecStat - Some basic numeric stats on vectors
 
    This package procides some basic statistics on numerical
-vectors. Included are max , min , sum , average.
+vectors. Included are max , min , maxabs, minabs, sum , average.
+See the module file for further information.
 
 Suggested Module Entry
 
