@@ -2,3 +2,4 @@ MANIFEST
 Makefile.PL
 VecStat.pm
 README
+t/VecStat.t
