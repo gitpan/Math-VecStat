@@ -1,12 +1,12 @@
 use ExtUtils::MakeMaker;
 use Config;
 
-$Version = '0.03';
+$Version = '0.04';
 
 WriteMakefile(
-	      'NAME'     => 'Math::VecStat',
-	      linkext => {LINKTYPE => ''}, # not needed for MakeMakers >= 5
-	      'VERSION'  => $Version,
-	      'dist'     => { SUFFIX => 'gz', COMPRESS => 'gzip -f' },
-	      'clean' 	  => {'FILES' => '*~'},
-	      );
+               'NAME'     => 'Math::VecStat',
+               'LINKTYPE' => '$(INST_PM)',,
+               'VERSION'  => $Version,
+               'dist'     => { SUFFIX => 'gz', COMPRESS => 'gzip -f' },
+               'clean' 	  => {'FILES' => '*~'},
+);

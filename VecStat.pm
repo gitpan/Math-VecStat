@@ -1,4 +1,5 @@
-# $Id: VecStat.pm,v 1.4 1996/02/20 07:53:10 willijar Exp $
+# $Id: VecStat.pm,v 1.5 1997/02/26 17:20:37 willijar Exp $
+
 =head1 NAME
 
     Math::VecStat - Some basic numeric stats on vectors
@@ -74,6 +75,9 @@ return the average of the given values or vector
 =head1 HISTORY
 
  $Log: VecStat.pm,v $
+ Revision 1.5  1997/02/26 17:20:37  willijar
+ Added line before pod header so pod2man installs man page correctly
+
  Revision 1.4  1996/02/20 07:53:10  willijar
  Added ability to return index in array contex to max and min
  functions. Added minabs and maxabs functions.
