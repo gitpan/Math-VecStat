@@ -6,7 +6,7 @@ package Math::VecStat;
 	vecprod ordered convolute
 	sumbyelement diffbyelement
 	allequal median);
-$Math::VecStat::VERSION = '0.06';
+$Math::VecStat::VERSION = '0.08';
 
 use strict;
 
@@ -131,15 +131,23 @@ sub median
 	my $v=ref($_[0]) ? $_[0] : \@_;
 	my $n = scalar @{$v};
 
-# generate a list of [index,value] pairs
+# generate a list of [value,index] pairs
 	my @tras =	map( [$v->[$_],$_], 0..$#{$v} );
-# sort by ascending value
-	my @sorted = sort { $a->[0] <=> $b->[0] } @tras;
+# sort by ascending value, then by original position
+# suggested by david@jamesgang.com
+	my @sorted = sort { ($a->[0] <=> $b->[0])
+		or ($a->[1] <=> $b->[1]) } @tras;
 # find the middle ordinal
 	my $med = int( $n / 2 );
 
-# we do not handle the case in which there is a tie,
-# i.e. there are several identical median values
+# when there are several identical median values
+# we arbitrarily (but consistently) choose the first one
+# in the original array
+
+	while( ($med >= 1) && ($sorted[$med]->[0] == $sorted[$med-1]->[0]) ){
+		$med--;
+	}
+
 	return $sorted[$med];
 }
 
@@ -287,14 +295,17 @@ returns the list reference
 i.e. the median value is 5 and it is found at position 4 of the
 original array.
 
-We do not [yet] perfectly handle the case of ties, i.e.
-the case in which there are several elements of the array
+If there are several elements of the array
 having the median value, e.g. [1,3,3,3,5].  In this case
-we return [3,2].
+we choose always the first element in the original vector
+which is a median. In the example, we return [3,1].
 
 =head1 HISTORY
 
  $Log: VecStat.pm,v $
+ Revision 1.9  2003/04/20 00:49:00 spinellia@acm.org
+ Perl 5.8 broke test 36, exposing inconsistency in C<median>.  Fixed, thanks to david@jamesgang.com.
+
  Revision 1.8  2001/01/26 11:10:00 spinellia@acm.org
  Added function median.
  Fixed test, thanks to Andreas Marcel Riechert <riechert@pobox.com>
