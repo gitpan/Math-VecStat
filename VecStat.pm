@@ -1,12 +1,12 @@
 
 require Exporter;
 package Math::VecStat;
-@ISA=qw(Exporter);
+@Math::VecStat::ISA=qw(Exporter);
 @EXPORT_OK=qw(max min maxabs minabs sum average
 	vecprod ordered convolute
 	sumbyelement diffbyelement
-	allequal);
-$Math::VecStat::VERSION = '0.05';
+	allequal median);
+$Math::VecStat::VERSION = '0.06';
 
 use strict;
 
@@ -124,6 +124,23 @@ sub convolute
 sub _justToAvoidWarnings
 {
 	my $a = $Math::VecStat::VERSION;
+}
+
+sub median
+{
+	my $v=ref($_[0]) ? $_[0] : \@_;
+	my $n = scalar @{$v};
+
+# generate a list of [index,value] pairs
+	my @tras =	map( [$v->[$_],$_], 0..$#{$v} );
+# sort by ascending value
+	my @sorted = sort { $a->[0] <=> $b->[0] } @tras;
+# find the middle ordinal
+	my $med = int( $n / 2 );
+
+# we do not handle the case in which there is a tie,
+# i.e. there are several identical median values
+	return $sorted[$med];
 }
 
 
@@ -254,10 +271,34 @@ returns a reference to
 
   [-1,4,3]
 
+=item median
+
+evaluates the median, i.e. an element which separates the population
+in two halves.  It returns a reference to a list whose first element
+is the median value and the second element is the index of the
+median element in the original vector.
+
+  $a = Math::VecStat::median( [9,8,7,6,5,4,3,2,1] );
+
+returns the list reference
+
+  [ 5, 4 ]
+
+i.e. the median value is 5 and it is found at position 4 of the
+original array.
+
+We do not [yet] perfectly handle the case of ties, i.e.
+the case in which there are several elements of the array
+having the median value, e.g. [1,3,3,3,5].  In this case
+we return [3,2].
 
 =head1 HISTORY
 
  $Log: VecStat.pm,v $
+ Revision 1.8  2001/01/26 11:10:00 spinellia@acm.org
+ Added function median.
+ Fixed test, thanks to Andreas Marcel Riechert <riechert@pobox.com>
+
  Revision 1.7  2000/10/24 15:28:00  spinellia@acm.org
  Added functions allequal diffbyelement
  Created a reasonable test suite.

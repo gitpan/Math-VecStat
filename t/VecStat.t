@@ -1,5 +1,5 @@
 
-print "1..35\n";
+print "1..36\n";
 
 $main::testct = 1;
 
@@ -7,9 +7,17 @@ use Math::VecStat qw(min max ordered allequal
 	minabs maxabs
 	sumbyelement diffbyelement
 	convolute vecprod
-	average
+	average median
 );
 # require 'VecStat.pm';
+
+# function t moved here to stop complaints
+# thanks to Andreas Marcel Riechert <riechert@pobox.com>
+
+sub t()
+{
+	printf "%sok %d\n", ($main::ok?'':'not '), $main::testct++;
+}
 
 ##################################
 # min (1-5)
@@ -157,7 +165,9 @@ t();
 $main::ok = average( 0.0 ) == 0.0;
 t();
 
-sub t()
-{
-	printf "%sok %d\n", ($main::ok?'':'not '), $main::testct++;
-}
+my $a = median( [1,1,2,3,4,3,2,3,4,5] );
+$main::ok = ($a->[0] == 3) && ($a->[1] == 3);
+t();
+
+$a = median( [1,2,2,3] );
+print "$a->[0], $a->[1]\n";
